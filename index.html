@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Подключение VPN</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --card: #161b22;
+    --card-2: #1c232c;
+    --line: #2a323d;
+    --ink: #e6edf3;
+    --ink-2: #9aa7b4;
+    --ink-3: #6e7b8a;
+    --accent: #3fb950;
+    --accent-ink: #0b1f12;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px 16px 48px;
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.01em; }
+  .sub { color: var(--ink-2); font-size: 14px; margin: 0 0 24px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px; margin-bottom: 14px;
+  }
+  .step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+  .step:last-child { margin-bottom: 0; }
+  .num {
+    flex: 0 0 26px; height: 26px; border-radius: 50%;
+    background: var(--card-2); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums;
+  }
+  .step h2 { font-size: 15px; margin: 2px 0 6px; font-weight: 600; }
+  .step p { margin: 0 0 10px; font-size: 14px; color: var(--ink-2); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: var(--accent-ink);
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 11px 18px; border-radius: 9px; border: 0; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn.sec {
+    background: var(--card-2); color: var(--ink);
+    border: 1px solid var(--line); font-weight: 500;
+  }
+
+  .os-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .os {
+    padding: 7px 14px; border-radius: 8px; font-size: 14px; cursor: pointer;
+    background: var(--card); border: 1px solid var(--line); color: var(--ink-2);
+    font-family: inherit;
+  }
+  .os[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: var(--card-2); }
+
+  .link-box {
+    background: #0b0f14; border: 1px solid var(--line); border-radius: 8px;
+    padding: 11px 13px; font-size: 12px; word-break: break-all;
+    color: var(--ink-2); font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    margin-bottom: 10px;
+  }
+  .note { font-size: 13px; color: var(--ink-3); margin-top: 8px; }
+  .err { color: #f85149; }
+  .ok-flash { color: var(--accent); font-size: 13px; margin-left: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Подключение VPN</h1>
+  <p class="sub">Три шага. Ссылка постоянная — сохранять новую при переездах не нужно.</p>
+
+  <div id="nolink" class="card" style="display:none">
+    <p class="err" style="margin:0">
+      Ссылка на подписку не передана. Откройте страницу по ссылке из бота целиком,
+      вместе с частью после решётки.
+    </p>
+  </div>
+
+  <div id="main" style="display:none">
+    <div class="os-row" id="osRow"></div>
+
+    <div class="card">
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h2>Установите приложение</h2>
+          <p id="appHint">Если оно уже стоит — переходите ко второму шагу.</p>
+          <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">Скачать</a>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h2>Добавьте подписку</h2>
+          <p>Приложение откроется само, подписка добавится автоматически.</p>
+          <a class="btn" id="addBtn" href="#">Добавить подписку</a>
+          <div class="note" id="addNote"></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h2>Включите VPN</h2>
+          <p>В приложении выберите профиль и нажмите кнопку подключения.</p>
+          <p class="note">
+            Не подключается — включите в настройках приложения «Фрагментация»
+            (Fragment) и попробуйте снова.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:15px;margin:0 0 8px">Добавить вручную</h2>
+      <p style="font-size:14px;color:var(--ink-2);margin:0 0 10px">
+        Если кнопка не сработала: скопируйте ссылку и добавьте её в приложении
+        как <b>подписку</b> (не как отдельный конфиг).
+      </p>
+      <div class="link-box" id="rawLink"></div>
+      <button class="btn sec" id="copyBtn">Скопировать ссылку</button>
+      <span class="ok-flash" id="copied" style="display:none">скопировано</span>
+    </div>
+
+    <p class="note">
+      Ссылка именная — не передавайте её другим. Если VPN перестанет работать,
+      не просите новую: откройте приложение и обновите подписку.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  // Ссылку берём из фрагмента: он не уходит на сервер, GitHub её не видит.
+  var sub = decodeURIComponent((location.hash || "").replace(/^#/, "").trim());
+
+  if (!/^https?:\/\//i.test(sub)) {
+    document.getElementById("nolink").style.display = "block";
+    return;
+  }
+  document.getElementById("main").style.display = "block";
+  document.getElementById("rawLink").textContent = sub;
+
+  // Клиенты по платформам. Схемы deep link у каждого свои.
+  var APPS = {
+    android: [
+      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+        install: "https://play.google.com/store/apps/details?id=com.v2raytun.android" },
+      { id: "happ", name: "Happ", scheme: "happ://add/", enc: false,
+        install: "https://play.google.com/store/apps/details?id=com.happproxy" },
+      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+        install: "https://play.google.com/store/apps/details?id=app.hiddify.com" }
+    ],
+    ios: [
+      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+        install: "https://apps.apple.com/app/id6476628951" },
+      { id: "happ", name: "Happ", scheme: "happ://add/", enc: false,
+        install: "https://apps.apple.com/app/id6504287215" }
+    ],
+    windows: [
+      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+        install: "https://storage.v2raytun.com/v2RayTun_Setup.exe" },
+      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+        install: "https://github.com/hiddify/hiddify-app/releases/latest" }
+    ],
+    macos: [
+      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+        install: "https://apps.apple.com/app/id6476628951" },
+      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+        install: "https://github.com/hiddify/hiddify-app/releases/latest" }
+    ]
+  };
+  var OS_NAMES = { android: "Android", ios: "iPhone / iPad", windows: "Windows", macos: "macOS" };
+
+  function detectOS() {
+    var u = navigator.userAgent;
+    if (/android/i.test(u)) return "android";
+    if (/iPhone|iPad|iPod/i.test(u)) return "ios";
+    if (/Mac OS X/i.test(u)) return "macos";
+    return "windows";
+  }
+
+  var curOS = detectOS(), curApp = 0;
+
+  function deepLink(app) {
+    return app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
+  }
+
+  function render() {
+    var apps = APPS[curOS], app = apps[curApp] || apps[0];
+    document.getElementById("installBtn").href = app.install;
+    document.getElementById("installBtn").textContent = "Скачать " + app.name;
+    document.getElementById("appHint").textContent =
+      "Приложение для " + OS_NAMES[curOS] + ": " + app.name + ". Если уже стоит — переходите ко второму шагу.";
+    document.getElementById("addBtn").href = deepLink(app);
+    document.getElementById("addNote").textContent =
+      "Откроется " + app.name + ". Если ничего не произошло — приложение не установлено.";
+
+    var row = document.getElementById("osRow");
+    row.innerHTML = "";
+    Object.keys(APPS).forEach(function (os) {
+      var b = document.createElement("button");
+      b.className = "os"; b.type = "button"; b.textContent = OS_NAMES[os];
+      b.setAttribute("aria-pressed", os === curOS ? "true" : "false");
+      b.onclick = function () { curOS = os; curApp = 0; render(); };
+      row.appendChild(b);
+    });
+    APPS[curOS].forEach(function (a, i) {
+      var b = document.createElement("button");
+      b.className = "os"; b.type = "button"; b.textContent = a.name;
+      b.setAttribute("aria-pressed", i === curApp ? "true" : "false");
+      b.style.opacity = ".85";
+      b.onclick = function () { curApp = i; render(); };
+      row.appendChild(b);
+    });
+  }
+
+  document.getElementById("copyBtn").onclick = function () {
+    var done = function () {
+      var f = document.getElementById("copied");
+      f.style.display = "inline";
+      setTimeout(function () { f.style.display = "none"; }, 1800);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(sub).then(done, function () {});
+    } else {
+      var t = document.createElement("textarea");
+      t.value = sub; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(t);
+    }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
