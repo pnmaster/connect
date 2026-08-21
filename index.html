@@ -186,7 +186,7 @@
           <div class="num">02</div>
           <div class="step-body">
             <h2>Добавьте подписку</h2>
-            <p>Нажмите — приложение откроется и настроится само.</p>
+            <p id="addLead">Нажмите — приложение откроется и настроится само.</p>
             <a class="btn" id="addBtn" href="#">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                    stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -199,7 +199,7 @@
         <div class="step">
           <div class="num">03</div>
           <div class="step-body">
-            <h2>Включите VPN</h2>
+            <h2 id="step3Title">Включите VPN</h2>
             <ol class="acts" id="acts"></ol>
             <div class="callout" style="margin-top:13px">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -259,6 +259,8 @@
   document.getElementById("rawLink").textContent = sub;
 
   // Порядок внутри платформы = порядок рекомендации.
+  // scheme отсутствует => приложение не умеет открываться по ссылке,
+  // подписка добавляется вручную (шаги в acts).
   var APPS = {
     android: [
       { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
@@ -274,7 +276,21 @@
       { name:"Hiddify", scheme:"hiddify://install-sub?url=", enc:true,
         install:"https://play.google.com/store/apps/details?id=app.hiddify.com",
         acts:["Нажмите кнопку подключения в центре экрана.",
-              "Разрешите создание VPN-подключения."] }
+              "Разрешите создание VPN-подключения."] },
+      { name:"v2rayNG", install:"https://github.com/2dust/v2rayNG/releases/latest",
+        warn:"Приложения больше нет в Google Play — ставится файлом APK с GitHub. Скачайте файл с названием вида v2rayNG_x.x.x.apk из списка Assets внизу страницы и разрешите установку из этого источника.",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Откройте v2rayNG, нажмите <b>≡</b> слева вверху → <b>Группы подписок</b>.",
+              "Нажмите <b>+</b>, впишите любое название, вставьте ссылку в поле <b>URL</b> и сохраните.",
+              "Снова <b>≡</b> → <b>Обновить подписки</b>: в списке появится профиль.",
+              "Выберите профиль и нажмите кнопку подключения внизу справа."] },
+      { name:"NekoBox", install:"https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/latest",
+        warn:"Приложения нет в Google Play — ставится файлом APK с GitHub. Скачайте файл с arm64 в названии из списка Assets внизу страницы.",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Откройте NekoBox → вкладка <b>Настройки</b> → <b>Группы</b>.",
+              "Нажмите <b>+</b>, тип — <b>Подписка</b>, вставьте ссылку, сохраните.",
+              "Обновите группу и выберите появившийся профиль.",
+              "Нажмите кнопку подключения."] }
     ],
     ios: [
       { name:"Happ", scheme:"happ://add/", enc:false,
@@ -282,11 +298,17 @@
         acts:["Выберите сервер и нажмите подключение.",
               "iPhone попросит <b>разрешить добавление VPN-конфигурации</b> — согласитесь и введите код устройства.",
               "Дальше VPN включается одной кнопкой в приложении."] },
-      { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
-        install:"https://apps.apple.com/app/v2raytun/id6476628951",
-        warn:"С марта 2026 приложение убрали из российского App Store — понадобится сменить регион Apple ID. Если это сложно, возьмите Happ, он работает так же.",
-        acts:["Выберите профиль и нажмите подключение.",
-              "Разрешите добавление VPN-конфигурации."] }
+      { name:"Streisand", install:"https://apps.apple.com/app/streisand/id6450534064",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Откройте Streisand, нажмите <b>+</b> справа вверху.",
+              "Выберите <b>Импорт из буфера обмена</b> — подписка добавится.",
+              "Выберите сервер и нажмите подключение, разрешите VPN-конфигурацию."] },
+      { name:"Shadowrocket", install:"https://apps.apple.com/app/shadowrocket/id932747118",
+        warn:"Приложение платное (около 3 долларов) и требует иностранный Apple ID. Если это неудобно — берите Happ, он бесплатный.",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Откройте Shadowrocket, нажмите <b>+</b> справа вверху.",
+              "Тип — <b>Subscribe</b>, вставьте ссылку в поле URL, нажмите <b>Done</b>.",
+              "Выберите сервер и включите переключатель вверху."] }
     ],
     windows: [
       { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
@@ -303,7 +325,15 @@
         acts:["Установите приложение из скачанного файла.",
               "Нажмите «Добавить подписку», подтвердите открытие приложения.",
               "<b>Включите режим TUN</b> в настройках, иначе в туннель попадёт не весь трафик.",
-              "Нажмите кнопку подключения."] }
+              "Нажмите кнопку подключения."] },
+      { name:"v2rayN", install:"https://github.com/2dust/v2rayN/releases/latest",
+        warn:"Откроется страница релиза на GitHub — скачивайте файл с Windows в названии из списка Assets внизу. Программа портативная: распакуйте архив в отдельную папку.",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Запустите v2rayN.exe из распакованной папки.",
+              "Меню <b>Подписки</b> → <b>Настройки подписок</b> → <b>+</b>, вставьте ссылку, сохраните.",
+              "<b>Подписки</b> → <b>Обновить подписки без фильтра</b> — появятся серверы.",
+              "Выберите сервер, затем внизу справа переключите режим на <b>Tun</b> — иначе через VPN пойдёт не весь трафик.",
+              "При первом включении Tun программа запросит права администратора — согласитесь."] }
     ],
     macos: [
       { name:"Happ", scheme:"happ://add/", enc:false,
@@ -316,7 +346,11 @@
         acts:["Установите приложение из скачанного файла.",
               "Нажмите «Добавить подписку».",
               "<b>Включите режим TUN</b>, если нужен весь трафик, а не только браузер.",
-              "Нажмите кнопку подключения."] }
+              "Нажмите кнопку подключения."] },
+      { name:"Streisand", install:"https://apps.apple.com/app/streisand/id6450534064",
+        acts:["Скопируйте ссылку кнопкой ниже.",
+              "Откройте Streisand, нажмите <b>+</b> → <b>Импорт из буфера обмена</b>.",
+              "Выберите сервер и нажмите подключение, разрешите VPN-конфигурацию."] }
     ]
   };
   var OS_NAMES = { android:"Android", ios:"iPhone", windows:"Windows", macos:"Mac" };
@@ -369,10 +403,24 @@
     document.getElementById("installText").textContent = "Скачать " + app.name;
     document.getElementById("appHint").textContent =
       "Если " + app.name + " уже установлен, переходите ко второму шагу.";
-    document.getElementById("addBtn").href =
-      app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
-    document.getElementById("addNote").innerHTML =
-      "Откроется <b>" + app.name + "</b>. Ничего не произошло — значит приложение ещё не установлено.";
+
+    // Кнопка есть только у приложений с проверенной схемой открытия по ссылке.
+    var hasDeep = !!app.scheme;
+    document.getElementById("addBtn").style.display = hasDeep ? "" : "none";
+    document.getElementById("addLead").textContent = hasDeep
+      ? "Нажмите — приложение откроется и настроится само."
+      : app.name + " не умеет открываться по ссылке: подписку добавляют вручную, это несложно.";
+    if (hasDeep) {
+      document.getElementById("addBtn").href =
+        app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
+      document.getElementById("addNote").innerHTML =
+        "Откроется <b>" + app.name + "</b>. Ничего не произошло — значит приложение ещё не установлено.";
+    } else {
+      document.getElementById("addNote").innerHTML =
+        "Скопируйте ссылку кнопкой в самом низу страницы — она понадобится на третьем шаге.";
+    }
+    document.getElementById("step3Title").textContent =
+      hasDeep ? "Включите VPN" : "Добавьте подписку и включите VPN";
 
     var acts = document.getElementById("acts"); acts.innerHTML = "";
     app.acts.forEach(function (t) {
