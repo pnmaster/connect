@@ -11,150 +11,111 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --bg:        #070a0e;
-    --panel:     #0d1218;
-    --panel-2:   #131a22;
-    --line:      #1e2833;
-    --line-hard: #2b3846;
-    --ink:       #dfe7ef;
-    --ink-2:     #8b9bab;
-    --ink-3:     #5b6b7c;
-    --accent:    #4fd1c5;
-    --accent-dim:#1d4a47;
-    --accent-ink:#04231f;
-    --warn:      #d9a441;
-    --danger:    #e05a6d;
+    --bg:#070a0e; --panel:#0d1218; --panel-2:#131a22;
+    --line:#1e2833; --line-hard:#2b3846;
+    --ink:#dfe7ef; --ink-2:#8b9bab; --ink-3:#5b6b7c;
+    --accent:#4fd1c5; --accent-dim:#1d4a47; --accent-ink:#04231f;
+    --warn:#d9a441; --danger:#e05a6d;
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
   body {
-    margin: 0; padding: 0 16px 48px;
-    background: var(--bg); color: var(--ink);
-    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+    margin:0; padding:0 16px 48px; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
   }
-  .wrap { max-width: 600px; margin: 0 auto; }
-  .mono {
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
-  }
+  .wrap { max-width:600px; margin:0 auto; }
+  .mono { font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+          letter-spacing:.13em; text-transform:uppercase; }
 
-  /* ── Шапка: карточка досье ── */
   header {
-    border: 1px solid var(--line-hard); border-top: 2px solid var(--accent);
-    background: var(--panel); padding: 22px 20px 20px; margin: 28px 0 16px;
+    border:1px solid var(--line-hard); border-top:2px solid var(--accent);
+    background:var(--panel); padding:22px 20px 20px; margin:28px 0 16px;
   }
-  .hdr-top {
-    display: flex; justify-content: space-between; align-items: center;
-    color: var(--ink-3); margin-bottom: 18px; gap: 12px;
-  }
-  .logo { display: flex; align-items: center; gap: 11px; }
-  .mark {
-    width: 32px; height: 32px; flex: 0 0 32px;
-    border: 1px solid var(--accent-dim); background: #0a1614;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .mark svg { width: 18px; height: 18px; display: block; color: var(--accent); }
-  .brand { font-weight: 700; font-size: 17px; letter-spacing: -.01em; line-height: 1.2; }
-  .brand .vpn { color: var(--accent); }
-  .brand small {
-    display: block; font-family: "IBM Plex Mono", monospace; font-weight: 400;
-    font-size: 10px; letter-spacing: .12em; color: var(--ink-3);
-    text-transform: uppercase; margin-top: 2px;
-  }
-  h1 { font-size: clamp(21px, 5.5vw, 26px); font-weight: 600; letter-spacing: -.02em;
-       margin: 0 0 7px; text-wrap: balance; }
-  .lede { color: var(--ink-2); font-size: 14.5px; margin: 0; text-wrap: balance; }
+  .hdr-top { display:flex; justify-content:space-between; align-items:center;
+             color:var(--ink-3); margin-bottom:18px; gap:12px; }
+  .logo { display:flex; align-items:center; gap:11px; }
+  .mark { width:32px; height:32px; flex:0 0 32px; border:1px solid var(--accent-dim);
+          background:#0a1614; display:flex; align-items:center; justify-content:center; }
+  .mark svg { width:18px; height:18px; display:block; color:var(--accent); }
+  .brand { font-weight:700; font-size:17px; letter-spacing:-.01em; line-height:1.2; }
+  .brand .vpn { color:var(--accent); }
+  .brand small { display:block; font-family:"IBM Plex Mono",monospace; font-weight:400;
+                 font-size:10px; letter-spacing:.12em; color:var(--ink-3);
+                 text-transform:uppercase; margin-top:2px; }
+  h1 { font-size:clamp(21px,5.5vw,26px); font-weight:600; letter-spacing:-.02em;
+       margin:0 0 7px; text-wrap:balance; }
+  .lede { color:var(--ink-2); font-size:14.5px; margin:0; text-wrap:balance; }
 
-  /* ── Панели ── */
-  .panel { border: 1px solid var(--line); background: var(--panel); margin-bottom: 12px; }
-  .panel-hd {
-    padding: 10px 16px; border-bottom: 1px solid var(--line);
-    background: var(--panel-2); color: var(--ink-3);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .panel-bd { padding: 18px 16px; }
+  .panel { border:1px solid var(--line); background:var(--panel); margin-bottom:12px; }
+  .panel-hd { padding:10px 16px; border-bottom:1px solid var(--line);
+              background:var(--panel-2); color:var(--ink-3);
+              display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .panel-bd { padding:18px 16px; }
 
-  /* ── Чипы ── */
-  .field + .field { margin-top: 16px; }
-  .field > .mono { color: var(--ink-3); display: block; margin-bottom: 8px; }
-  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
-  .chip {
-    padding: 7px 14px; font-size: 13.5px; font-weight: 500; cursor: pointer;
-    background: var(--panel-2); border: 1px solid var(--line-hard); color: var(--ink-2);
-    font-family: inherit; transition: border-color .12s, color .12s;
-  }
-  .chip:hover { color: var(--ink); border-color: var(--ink-3); }
-  .chip[aria-pressed="true"] {
-    border-color: var(--accent); color: var(--accent-ink);
-    background: var(--accent); font-weight: 600;
-  }
+  .field + .field { margin-top:16px; }
+  .field > .mono { color:var(--ink-3); display:block; margin-bottom:8px; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; }
+  .chip { padding:7px 14px; font-size:13.5px; font-weight:500; cursor:pointer;
+          background:var(--panel-2); border:1px solid var(--line-hard); color:var(--ink-2);
+          font-family:inherit; transition:border-color .12s,color .12s; }
+  .chip:hover { color:var(--ink); border-color:var(--ink-3); }
+  .chip[aria-pressed="true"] { border-color:var(--accent); color:var(--accent-ink);
+                               background:var(--accent); font-weight:600; }
 
-  /* ── Шаги ── */
-  .step { display: flex; gap: 14px; padding: 17px 0; border-top: 1px solid var(--line); }
-  .step:first-child { border-top: 0; padding-top: 2px; }
-  .step:last-child { padding-bottom: 0; }
-  .num {
-    flex: 0 0 30px; height: 24px; border: 1px solid var(--line-hard);
-    background: var(--panel-2); color: var(--ink-2);
-    display: flex; align-items: center; justify-content: center;
-    font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500;
-    font-variant-numeric: tabular-nums; margin-top: 2px;
-  }
-  .step-body { flex: 1; min-width: 0; }
-  .step h2 { font-size: 15.5px; font-weight: 600; margin: 0 0 5px; }
-  .step p { margin: 0 0 11px; font-size: 14px; color: var(--ink-2); }
-  .step p:last-child { margin-bottom: 0; }
+  .step { display:flex; gap:14px; padding:17px 0; border-top:1px solid var(--line); }
+  .step:first-child { border-top:0; padding-top:2px; }
+  .step:last-child { padding-bottom:0; }
+  .num { flex:0 0 30px; height:24px; border:1px solid var(--line-hard);
+         background:var(--panel-2); color:var(--ink-2); display:flex;
+         align-items:center; justify-content:center; font-family:"IBM Plex Mono",monospace;
+         font-size:11px; font-weight:500; font-variant-numeric:tabular-nums; margin-top:2px; }
+  .step-body { flex:1; min-width:0; }
+  .step h2 { font-size:15.5px; font-weight:600; margin:0 0 5px; }
+  .step p { margin:0 0 11px; font-size:14px; color:var(--ink-2); }
+  .step p:last-child { margin-bottom:0; }
 
-  /* ── Кнопки ── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 11px 19px; border: 1px solid var(--accent); cursor: pointer;
-    font-family: inherit; font-size: 14.5px; font-weight: 600; text-decoration: none;
-    background: var(--accent); color: var(--accent-ink); transition: opacity .12s;
-  }
-  .btn:hover { opacity: .88; }
-  .btn:active { transform: translateY(1px); }
-  .btn.sec {
-    background: var(--panel-2); color: var(--ink);
-    border-color: var(--line-hard); font-weight: 500;
-  }
-  .btn.sec:hover { border-color: var(--ink-3); opacity: 1; }
-  .btn svg { width: 15px; height: 15px; flex: 0 0 15px; }
-  .btn-row { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
+  ol.acts { margin:0; padding-left:19px; display:grid; gap:8px; }
+  ol.acts li { font-size:14px; color:var(--ink-2); line-height:1.5; }
+  ol.acts li b { color:var(--ink); font-weight:600; }
 
-  .link-box {
-    background: #04070a; border: 1px solid var(--line); padding: 11px 13px;
-    font-family: "IBM Plex Mono", monospace; font-size: 11px; line-height: 1.55;
-    word-break: break-all; color: var(--ink-2); margin-bottom: 11px;
-  }
-  .hint { font-size: 12.5px; color: var(--ink-3); margin: 9px 0 0; }
-  .hint b { color: var(--ink-2); font-weight: 600; }
-  .flash { color: var(--accent); font-size: 13px; font-weight: 600; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+         padding:11px 19px; border:1px solid var(--accent); cursor:pointer;
+         font-family:inherit; font-size:14.5px; font-weight:600; text-decoration:none;
+         background:var(--accent); color:var(--accent-ink); transition:opacity .12s; }
+  .btn:hover { opacity:.88; }
+  .btn:active { transform:translateY(1px); }
+  .btn.sec { background:var(--panel-2); color:var(--ink); border-color:var(--line-hard);
+             font-weight:500; }
+  .btn.sec:hover { border-color:var(--ink-3); opacity:1; }
+  .btn svg { width:15px; height:15px; flex:0 0 15px; }
+  .btn-row { display:flex; gap:9px; flex-wrap:wrap; align-items:center; }
 
-  .callout {
-    display: flex; gap: 10px; padding: 12px 14px;
-    background: rgba(217, 164, 65, .06); border-left: 2px solid var(--warn);
-    font-size: 13px; color: var(--ink-2); line-height: 1.5;
-  }
-  .callout svg { width: 15px; height: 15px; flex: 0 0 15px; margin-top: 2px; color: var(--warn); }
-  .callout b { color: var(--ink); font-weight: 600; }
+  .link-box { background:#04070a; border:1px solid var(--line); padding:11px 13px;
+              font-family:"IBM Plex Mono",monospace; font-size:11px; line-height:1.55;
+              word-break:break-all; color:var(--ink-2); margin-bottom:11px; }
+  .hint { font-size:12.5px; color:var(--ink-3); margin:9px 0 0; }
+  .hint b { color:var(--ink-2); font-weight:600; }
+  .flash { color:var(--accent); font-size:13px; font-weight:600; }
 
-  .err-panel { border-color: rgba(224, 90, 109, .35); }
-  .err-panel .panel-hd { color: var(--danger); border-bottom-color: rgba(224, 90, 109, .25); }
-  .err-panel p { color: var(--ink-2); font-size: 14px; margin: 0; }
+  .callout { display:flex; gap:10px; padding:12px 14px; margin:0 0 12px;
+             background:rgba(217,164,65,.06); border-left:2px solid var(--warn);
+             font-size:13px; color:var(--ink-2); line-height:1.5; }
+  .callout svg { width:15px; height:15px; flex:0 0 15px; margin-top:2px; color:var(--warn); }
+  .callout b { color:var(--ink); font-weight:600; }
+  .callout:last-child { margin-bottom:0; }
 
-  footer {
-    border-top: 1px solid var(--line); margin-top: 22px; padding-top: 16px;
-    color: var(--ink-3); font-size: 12.5px; line-height: 1.65;
-  }
-  footer a { color: var(--ink-2); }
-  footer .sig {
-    margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line);
-    color: #46525f;
-  }
+  .err-panel { border-color:rgba(224,90,109,.35); }
+  .err-panel .panel-hd { color:var(--danger); border-bottom-color:rgba(224,90,109,.25); }
+  .err-panel p { color:var(--ink-2); font-size:14px; margin:0; }
 
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  footer { border-top:1px solid var(--line); margin-top:22px; padding-top:16px;
+           color:var(--ink-3); font-size:12.5px; line-height:1.65; }
+  footer a { color:var(--ink-2); }
+  footer .sig { margin-top:12px; padding-top:12px; border-top:1px dashed var(--line);
+                color:#46525f; }
+
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
 </style>
 </head>
 <body>
@@ -164,7 +125,6 @@
     <div class="hdr-top">
       <div class="logo">
         <span class="mark" aria-hidden="true">
-          <!-- контейнер с энкефалином -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2.6 20.4 7v10L12 21.4 3.6 17V7L12 2.6Z"/>
@@ -172,10 +132,8 @@
             <circle cx="12" cy="7" r="1.6" fill="currentColor" stroke="none"/>
           </svg>
         </span>
-        <span class="brand">
-          Enkephalin<span class="vpn">VPN</span>
-          <small>протокол подключения</small>
-        </span>
+        <span class="brand">Enkephalin<span class="vpn">VPN</span>
+          <small>протокол подключения</small></span>
       </div>
       <span class="mono" id="osTag">—</span>
     </div>
@@ -196,25 +154,23 @@
     <div class="panel">
       <div class="panel-hd"><span class="mono">Конфигурация</span></div>
       <div class="panel-bd">
-        <div class="field">
-          <span class="mono">Устройство</span>
-          <div class="chips" id="osRow"></div>
-        </div>
-        <div class="field">
-          <span class="mono">Приложение</span>
-          <div class="chips" id="appRow"></div>
-        </div>
+        <div class="field"><span class="mono">Устройство</span>
+          <div class="chips" id="osRow"></div></div>
+        <div class="field"><span class="mono">Приложение</span>
+          <div class="chips" id="appRow"></div></div>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-hd"><span class="mono">Порядок действий</span><span class="mono">03 шага</span></div>
+      <div class="panel-hd"><span class="mono">Порядок действий</span>
+        <span class="mono" id="appTag"></span></div>
       <div class="panel-bd">
 
         <div class="step">
           <div class="num">01</div>
           <div class="step-body">
             <h2>Установите приложение</h2>
+            <div id="warnBox"></div>
             <p id="appHint"></p>
             <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -230,12 +186,10 @@
           <div class="num">02</div>
           <div class="step-body">
             <h2>Добавьте подписку</h2>
-            <p>Приложение откроется само и настроится — вводить ничего не нужно.</p>
+            <p>Нажмите — приложение откроется и настроится само.</p>
             <a class="btn" id="addBtn" href="#">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
               Добавить подписку
             </a>
             <p class="hint" id="addNote"></p>
@@ -246,14 +200,14 @@
           <div class="num">03</div>
           <div class="step-body">
             <h2>Включите VPN</h2>
-            <p>Выберите профиль в приложении и нажмите кнопку подключения.</p>
-            <div class="callout">
+            <ol class="acts" id="acts"></ol>
+            <div class="callout" style="margin-top:13px">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                    stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>
               </svg>
-              <span><b>Не подключается?</b> Включите в настройках приложения
-              «Фрагментация» (Fragment) и попробуйте снова.</span>
+              <span><b>Не подключается?</b> Найдите в настройках приложения
+              «Фрагментация» (Fragment), включите и попробуйте снова.</span>
             </div>
           </div>
         </div>
@@ -265,7 +219,7 @@
       <div class="panel-hd"><span class="mono">Резервный способ</span></div>
       <div class="panel-bd">
         <p style="font-size:14px;color:var(--ink-2);margin:0 0 12px">
-          Если кнопка не сработала — скопируйте ссылку и добавьте её в приложении
+          Кнопка не сработала — скопируйте ссылку и добавьте её в приложении
           как <b style="color:var(--ink)">подписку</b>, а не как отдельный конфиг.
         </p>
         <div class="link-box" id="rawLink"></div>
@@ -285,8 +239,8 @@
 
     <footer>
       Ссылка именная — не передавайте её другим.<br>
-      Перестал работать VPN? Не просите новую ссылку — откройте приложение
-      и обновите подписку.<br>
+      Перестал работать VPN? Не просите новую ссылку — откройте эту страницу
+      и нажмите «Добавить подписку» ещё раз.<br>
       Связь: <a href="https://t.me/EnkephalinVPN">@EnkephalinVPN</a>
       <div class="sig mono">Отдел контроля информации · доступ по подписке</div>
     </footer>
@@ -296,10 +250,7 @@
 
 <script>
 (function () {
-  // Ссылка приезжает во фрагменте: браузер не отправляет его на сервер,
-  // поэтому GitHub не видит, чья это подписка.
   var sub = decodeURIComponent((location.hash || "").replace(/^#/, "").trim());
-
   if (!/^https?:\/\//i.test(sub)) {
     document.getElementById("nolink").style.display = "block";
     return;
@@ -307,35 +258,68 @@
   document.getElementById("main").style.display = "block";
   document.getElementById("rawLink").textContent = sub;
 
+  // Порядок внутри платформы = порядок рекомендации.
   var APPS = {
     android: [
-      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
-        install: "https://play.google.com/store/apps/details?id=com.v2raytun.android" },
-      { name: "Happ", scheme: "happ://add/", enc: false,
-        install: "https://play.google.com/store/apps/details?id=com.happproxy" },
-      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
-        install: "https://play.google.com/store/apps/details?id=app.hiddify.com" }
+      { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
+        install:"https://play.google.com/store/apps/details?id=com.v2raytun.android",
+        acts:["Подтвердите сохранение профиля, когда приложение откроется.",
+              "Выберите профиль и нажмите большую кнопку подключения.",
+              "Android спросит разрешение на VPN-подключение — <b>разрешите</b>, это обычный системный запрос."] },
+      { name:"Happ", scheme:"happ://add/", enc:false,
+        install:"https://play.google.com/store/apps/details?id=com.happproxy",
+        acts:["Выберите сервер из списка.",
+              "Нажмите кнопку подключения.",
+              "Разрешите создание VPN-подключения."] },
+      { name:"Hiddify", scheme:"hiddify://install-sub?url=", enc:true,
+        install:"https://play.google.com/store/apps/details?id=app.hiddify.com",
+        acts:["Нажмите кнопку подключения в центре экрана.",
+              "Разрешите создание VPN-подключения."] }
     ],
     ios: [
-      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
-        install: "https://apps.apple.com/app/id6476628951" },
-      { name: "Happ", scheme: "happ://add/", enc: false,
-        install: "https://apps.apple.com/app/id6504287215" }
+      { name:"Happ", scheme:"happ://add/", enc:false,
+        install:"https://apps.apple.com/app/id6504287215",
+        acts:["Выберите сервер и нажмите подключение.",
+              "iPhone попросит <b>разрешить добавление VPN-конфигурации</b> — согласитесь и введите код устройства.",
+              "Дальше VPN включается одной кнопкой в приложении."] },
+      { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
+        install:"https://apps.apple.com/app/v2raytun/id6476628951",
+        warn:"С марта 2026 приложение убрали из российского App Store — понадобится сменить регион Apple ID. Если это сложно, возьмите Happ, он работает так же.",
+        acts:["Выберите профиль и нажмите подключение.",
+              "Разрешите добавление VPN-конфигурации."] }
     ],
     windows: [
-      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
-        install: "https://storage.v2raytun.com/v2RayTun_Setup.exe" },
-      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
-        install: "https://github.com/hiddify/hiddify-app/releases/latest" }
+      { name:"v2RayTun", scheme:"v2raytun://import/", enc:false,
+        install:"https://storage.v2raytun.com/v2RayTun_Setup.exe",
+        warn:"На Windows одного подключения мало: без режима TUN через VPN пойдёт только браузер, а программы — напрямую.",
+        acts:["Запустите установщик. Windows может предупредить о неизвестном издателе — это нормально для таких программ.",
+              "Вернитесь сюда и нажмите «Добавить подписку», подтвердите открытие приложения.",
+              "В приложении <b>включите режим TUN</b> (туннель) — переключатель на главном экране или в настройках.",
+              "При первом включении Windows запросит права администратора и поставит сетевой драйвер — согласитесь.",
+              "Выберите профиль и нажмите подключение."] },
+      { name:"Hiddify", scheme:"hiddify://install-sub?url=", enc:true,
+        install:"https://github.com/hiddify/hiddify-app/releases/latest",
+        warn:"Откроется страница релиза на GitHub. Файл для Windows ищите в списке Assets внизу.",
+        acts:["Установите приложение из скачанного файла.",
+              "Нажмите «Добавить подписку», подтвердите открытие приложения.",
+              "<b>Включите режим TUN</b> в настройках, иначе в туннель попадёт не весь трафик.",
+              "Нажмите кнопку подключения."] }
     ],
     macos: [
-      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
-        install: "https://apps.apple.com/app/id6476628951" },
-      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
-        install: "https://github.com/hiddify/hiddify-app/releases/latest" }
+      { name:"Happ", scheme:"happ://add/", enc:false,
+        install:"https://apps.apple.com/app/id6504287215",
+        acts:["Выберите сервер и нажмите подключение.",
+              "macOS попросит разрешить VPN-конфигурацию — согласитесь."] },
+      { name:"Hiddify", scheme:"hiddify://install-sub?url=", enc:true,
+        install:"https://github.com/hiddify/hiddify-app/releases/latest",
+        warn:"Откроется страница релиза на GitHub. Файл для macOS ищите в списке Assets внизу.",
+        acts:["Установите приложение из скачанного файла.",
+              "Нажмите «Добавить подписку».",
+              "<b>Включите режим TUN</b>, если нужен весь трафик, а не только браузер.",
+              "Нажмите кнопку подключения."] }
     ]
   };
-  var OS_NAMES = { android: "Android", ios: "iPhone", windows: "Windows", macos: "Mac" };
+  var OS_NAMES = { android:"Android", ios:"iPhone", windows:"Windows", macos:"Mac" };
 
   function detectOS() {
     var u = navigator.userAgent;
@@ -355,27 +339,32 @@
     return b;
   }
 
+  function warnHTML(text) {
+    return '<div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"' +
+      ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>' +
+      '</svg><span>' + text + '</span></div>';
+  }
+
   function render() {
     var apps = APPS[curOS], app = apps[curApp] || apps[0];
 
     document.getElementById("osTag").textContent = OS_NAMES[curOS];
+    document.getElementById("appTag").textContent = app.name;
 
-    var osRow = document.getElementById("osRow");
-    osRow.innerHTML = "";
+    var osRow = document.getElementById("osRow"); osRow.innerHTML = "";
     Object.keys(APPS).forEach(function (os) {
       osRow.appendChild(chip(OS_NAMES[os], os === curOS, function () {
         curOS = os; curApp = 0; render();
       }));
     });
 
-    var appRow = document.getElementById("appRow");
-    appRow.innerHTML = "";
+    var appRow = document.getElementById("appRow"); appRow.innerHTML = "";
     apps.forEach(function (a, i) {
-      appRow.appendChild(chip(a.name, i === curApp, function () {
-        curApp = i; render();
-      }));
+      appRow.appendChild(chip(a.name, i === curApp, function () { curApp = i; render(); }));
     });
 
+    document.getElementById("warnBox").innerHTML = app.warn ? warnHTML(app.warn) : "";
     document.getElementById("installBtn").href = app.install;
     document.getElementById("installText").textContent = "Скачать " + app.name;
     document.getElementById("appHint").textContent =
@@ -384,6 +373,11 @@
       app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
     document.getElementById("addNote").innerHTML =
       "Откроется <b>" + app.name + "</b>. Ничего не произошло — значит приложение ещё не установлено.";
+
+    var acts = document.getElementById("acts"); acts.innerHTML = "";
+    app.acts.forEach(function (t) {
+      var li = document.createElement("li"); li.innerHTML = t; acts.appendChild(li);
+    });
   }
 
   document.getElementById("copyBtn").onclick = function () {
