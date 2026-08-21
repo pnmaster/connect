@@ -4,148 +4,283 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Подключение VPN</title>
+<meta name="theme-color" content="#080b11">
+<title>EnkephalinVPN — подключение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
 <style>
   :root {
-    --bg: #0e1116;
-    --card: #161b22;
-    --card-2: #1c232c;
-    --line: #2a323d;
-    --ink: #e6edf3;
-    --ink-2: #9aa7b4;
-    --ink-3: #6e7b8a;
-    --accent: #3fb950;
-    --accent-ink: #0b1f12;
+    --bg:        #080b11;
+    --bg-glow:   #0d1420;
+    --card:      #10161f;
+    --card-2:    #161d28;
+    --line:      #212b38;
+    --line-soft: #1a2330;
+    --ink:       #e8eef5;
+    --ink-2:     #93a3b5;
+    --ink-3:     #63738a;
+    --accent:    #4fd1c5;
+    --accent-2:  #38bdf8;
+    --accent-ink:#04231f;
+    --warn:      #f0b429;
+    --danger:    #f2687a;
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0; padding: 24px 16px 48px;
-    background: var(--bg); color: var(--ink);
-    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0 16px 56px;
+    background:
+      radial-gradient(1100px 520px at 50% -8%, var(--bg-glow) 0%, transparent 65%),
+      var(--bg);
+    color: var(--ink);
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 640px; margin: 0 auto; }
-  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.01em; }
-  .sub { color: var(--ink-2); font-size: 14px; margin: 0 0 24px; }
+  .wrap { max-width: 620px; margin: 0 auto; }
 
-  .card {
-    background: var(--card); border: 1px solid var(--line);
-    border-radius: 12px; padding: 18px; margin-bottom: 14px;
+  /* ── Шапка ── */
+  header { padding: 40px 0 30px; text-align: center; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 19px; letter-spacing: -.02em;
   }
-  .step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
-  .step:last-child { margin-bottom: 0; }
+  .logo .mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 18px rgba(79, 209, 197, .22);
+  }
+  .logo .mark svg { width: 17px; height: 17px; display: block; }
+  .logo .en { color: var(--ink); }
+  .logo .vpn {
+    color: var(--accent); font-weight: 600;
+  }
+  h1 {
+    font-size: clamp(24px, 6vw, 30px); font-weight: 700;
+    letter-spacing: -.025em; margin: 22px 0 8px; text-wrap: balance;
+  }
+  .lede { color: var(--ink-2); font-size: 15px; margin: 0; text-wrap: balance; }
+
+  /* ── Карточки ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+
+  /* ── Переключатели ── */
+  .switch-label {
+    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 600; margin: 0 0 9px;
+  }
+  .chips { display: flex; gap: 7px; flex-wrap: wrap; }
+  .chip {
+    padding: 8px 15px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    background: var(--card-2); border: 1px solid var(--line); color: var(--ink-2);
+    cursor: pointer; font-family: inherit; transition: border-color .15s, color .15s;
+  }
+  .chip:hover { color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    border-color: var(--accent); color: var(--accent-ink);
+    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 130%);
+    font-weight: 600;
+  }
+  .chips + .switch-label { margin-top: 18px; }
+
+  /* ── Шаги ── */
+  .step { display: flex; gap: 15px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+  .step:first-of-type { border-top: 0; padding-top: 4px; }
+  .step:last-child { padding-bottom: 2px; }
   .num {
-    flex: 0 0 26px; height: 26px; border-radius: 50%;
+    flex: 0 0 27px; height: 27px; border-radius: 50%;
     background: var(--card-2); border: 1px solid var(--line);
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums;
+    font-size: 13px; font-weight: 600; color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
   }
-  .step h2 { font-size: 15px; margin: 2px 0 6px; font-weight: 600; }
-  .step p { margin: 0 0 10px; font-size: 14px; color: var(--ink-2); }
+  .step-body { flex: 1; min-width: 0; }
+  .step h2 { font-size: 16px; font-weight: 600; margin: 3px 0 6px; }
+  .step p { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+  .step p:last-child { margin-bottom: 0; }
 
+  /* ── Кнопки ── */
   .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: var(--accent-ink);
-    text-decoration: none; font-weight: 600; font-size: 15px;
-    padding: 11px 18px; border-radius: 9px; border: 0; cursor: pointer;
-    font-family: inherit;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 20px; border-radius: 11px; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: none;
+    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 130%);
+    color: var(--accent-ink);
+    box-shadow: 0 4px 16px rgba(79, 209, 197, .18);
+    transition: transform .12s, box-shadow .12s;
   }
+  .btn:hover { box-shadow: 0 6px 22px rgba(79, 209, 197, .26); }
   .btn:active { transform: translateY(1px); }
   .btn.sec {
     background: var(--card-2); color: var(--ink);
-    border: 1px solid var(--line); font-weight: 500;
+    border: 1px solid var(--line); box-shadow: none; font-weight: 500;
   }
+  .btn.sec:hover { border-color: var(--ink-3); }
+  .btn svg { width: 16px; height: 16px; flex: 0 0 16px; }
+  .btn-row { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
 
-  .os-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .os {
-    padding: 7px 14px; border-radius: 8px; font-size: 14px; cursor: pointer;
-    background: var(--card); border: 1px solid var(--line); color: var(--ink-2);
-    font-family: inherit;
-  }
-  .os[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: var(--card-2); }
-
+  /* ── Ссылка ── */
   .link-box {
-    background: #0b0f14; border: 1px solid var(--line); border-radius: 8px;
-    padding: 11px 13px; font-size: 12px; word-break: break-all;
-    color: var(--ink-2); font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    margin-bottom: 10px;
+    background: #05080d; border: 1px solid var(--line-soft); border-radius: 10px;
+    padding: 12px 14px; font-size: 11.5px; line-height: 1.5; word-break: break-all;
+    color: var(--ink-2); font-family: "JetBrains Mono", ui-monospace, monospace;
+    margin-bottom: 11px;
   }
-  .note { font-size: 13px; color: var(--ink-3); margin-top: 8px; }
-  .err { color: #f85149; }
-  .ok-flash { color: var(--accent); font-size: 13px; margin-left: 10px; }
+
+  .hint { font-size: 13px; color: var(--ink-3); margin: 10px 0 0; }
+  .hint b { color: var(--ink-2); font-weight: 600; }
+  .flash { color: var(--accent); font-size: 13px; font-weight: 600; }
+
+  .callout {
+    display: flex; gap: 11px; padding: 13px 15px; border-radius: 11px;
+    background: rgba(240, 180, 41, .07); border: 1px solid rgba(240, 180, 41, .22);
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+  }
+  .callout svg { width: 16px; height: 16px; flex: 0 0 16px; margin-top: 2px; color: var(--warn); }
+  .callout b { color: var(--ink); font-weight: 600; }
+
+  .err-card {
+    border-color: rgba(242, 104, 122, .3);
+    background: rgba(242, 104, 122, .06);
+  }
+  .err-card p { color: var(--ink-2); font-size: 14px; margin: 0; }
+  .err-card b { color: var(--danger); }
+
+  footer {
+    text-align: center; color: var(--ink-3); font-size: 12.5px;
+    padding-top: 26px; line-height: 1.7;
+  }
+  footer a { color: var(--ink-2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <h1>Подключение VPN</h1>
-  <p class="sub">Три шага. Ссылка постоянная — сохранять новую при переездах не нужно.</p>
+  <header>
+    <div class="logo">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#04231f" stroke-width="2.4"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5 4.5 6v6c0 4.6 3.1 8.4 7.5 9.5 4.4-1.1 7.5-4.9 7.5-9.5V6L12 2.5Z"/>
+        </svg>
+      </span>
+      <span><span class="en">Enkephalin</span><span class="vpn">VPN</span></span>
+    </div>
+    <h1>Подключение за три шага</h1>
+    <p class="lede">Ссылка постоянная — при переездах сервера ничего просить не нужно.</p>
+  </header>
 
-  <div id="nolink" class="card" style="display:none">
-    <p class="err" style="margin:0">
-      Ссылка на подписку не передана. Откройте страницу по ссылке из бота целиком,
-      вместе с частью после решётки.
-    </p>
+  <div id="nolink" class="card err-card" style="display:none">
+    <p><b>Ссылка не передана.</b> Откройте страницу по ссылке из бота целиком —
+    вместе с частью после решётки. Если копировали вручную, скопируйте адрес заново.</p>
   </div>
 
-  <div id="main" style="display:none">
-    <div class="os-row" id="osRow"></div>
+  <main id="main" style="display:none">
+
+    <div class="card">
+      <p class="switch-label">Устройство</p>
+      <div class="chips" id="osRow"></div>
+      <p class="switch-label">Приложение</p>
+      <div class="chips" id="appRow"></div>
+    </div>
 
     <div class="card">
       <div class="step">
         <div class="num">1</div>
-        <div>
+        <div class="step-body">
           <h2>Установите приложение</h2>
-          <p id="appHint">Если оно уже стоит — переходите ко второму шагу.</p>
-          <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">Скачать</a>
+          <p id="appHint"></p>
+          <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span id="installText">Скачать</span>
+          </a>
         </div>
       </div>
 
       <div class="step">
         <div class="num">2</div>
-        <div>
+        <div class="step-body">
           <h2>Добавьте подписку</h2>
-          <p>Приложение откроется само, подписка добавится автоматически.</p>
-          <a class="btn" id="addBtn" href="#">Добавить подписку</a>
-          <div class="note" id="addNote"></div>
+          <p>Приложение откроется само и настроится — вводить ничего не нужно.</p>
+          <a class="btn" id="addBtn" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Добавить подписку
+          </a>
+          <p class="hint" id="addNote"></p>
         </div>
       </div>
 
       <div class="step">
         <div class="num">3</div>
-        <div>
+        <div class="step-body">
           <h2>Включите VPN</h2>
-          <p>В приложении выберите профиль и нажмите кнопку подключения.</p>
-          <p class="note">
-            Не подключается — включите в настройках приложения «Фрагментация»
-            (Fragment) и попробуйте снова.
-          </p>
+          <p>Выберите профиль в приложении и нажмите кнопку подключения.</p>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>
+            </svg>
+            <span><b>Не подключается?</b> Включите в настройках приложения
+            «Фрагментация» (Fragment) и попробуйте снова.</span>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h2 style="font-size:15px;margin:0 0 8px">Добавить вручную</h2>
-      <p style="font-size:14px;color:var(--ink-2);margin:0 0 10px">
-        Если кнопка не сработала: скопируйте ссылку и добавьте её в приложении
-        как <b>подписку</b> (не как отдельный конфиг).
+      <h2 style="font-size:16px;font-weight:600;margin:0 0 7px">Добавить вручную</h2>
+      <p style="font-size:14px;color:var(--ink-2);margin:0 0 13px">
+        Если кнопка не сработала — скопируйте ссылку и добавьте её в приложении
+        как <b style="color:var(--ink)">подписку</b>, а не как отдельный конфиг.
       </p>
       <div class="link-box" id="rawLink"></div>
-      <button class="btn sec" id="copyBtn">Скопировать ссылку</button>
-      <span class="ok-flash" id="copied" style="display:none">скопировано</span>
+      <div class="btn-row">
+        <button class="btn sec" id="copyBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="12" height="12" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Скопировать ссылку
+        </button>
+        <span class="flash" id="copied" style="display:none">Скопировано</span>
+      </div>
     </div>
 
-    <p class="note">
-      Ссылка именная — не передавайте её другим. Если VPN перестанет работать,
-      не просите новую: откройте приложение и обновите подписку.
-    </p>
-  </div>
+    <footer>
+      Ссылка именная — не передавайте её другим.<br>
+      Перестал работать VPN? Не просите новую ссылку — откройте приложение
+      и обновите подписку.<br>
+      Вопросы: <a href="https://t.me/EnkephalinVPN">@EnkephalinVPN</a>
+    </footer>
 
+  </main>
 </div>
 
 <script>
 (function () {
-  // Ссылку берём из фрагмента: он не уходит на сервер, GitHub её не видит.
+  // Ссылка приезжает во фрагменте: браузер не отправляет его на сервер,
+  // поэтому GitHub не видит, чья это подписка.
   var sub = decodeURIComponent((location.hash || "").replace(/^#/, "").trim());
 
   if (!/^https?:\/\//i.test(sub)) {
@@ -155,36 +290,35 @@
   document.getElementById("main").style.display = "block";
   document.getElementById("rawLink").textContent = sub;
 
-  // Клиенты по платформам. Схемы deep link у каждого свои.
   var APPS = {
     android: [
-      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
         install: "https://play.google.com/store/apps/details?id=com.v2raytun.android" },
-      { id: "happ", name: "Happ", scheme: "happ://add/", enc: false,
+      { name: "Happ", scheme: "happ://add/", enc: false,
         install: "https://play.google.com/store/apps/details?id=com.happproxy" },
-      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
         install: "https://play.google.com/store/apps/details?id=app.hiddify.com" }
     ],
     ios: [
-      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
         install: "https://apps.apple.com/app/id6476628951" },
-      { id: "happ", name: "Happ", scheme: "happ://add/", enc: false,
+      { name: "Happ", scheme: "happ://add/", enc: false,
         install: "https://apps.apple.com/app/id6504287215" }
     ],
     windows: [
-      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
         install: "https://storage.v2raytun.com/v2RayTun_Setup.exe" },
-      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
         install: "https://github.com/hiddify/hiddify-app/releases/latest" }
     ],
     macos: [
-      { id: "v2raytun", name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
+      { name: "v2RayTun", scheme: "v2raytun://import/", enc: false,
         install: "https://apps.apple.com/app/id6476628951" },
-      { id: "hiddify", name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
+      { name: "Hiddify", scheme: "hiddify://install-sub?url=", enc: true,
         install: "https://github.com/hiddify/hiddify-app/releases/latest" }
     ]
   };
-  var OS_NAMES = { android: "Android", ios: "iPhone / iPad", windows: "Windows", macos: "macOS" };
+  var OS_NAMES = { android: "Android", ios: "iPhone", windows: "Windows", macos: "Mac" };
 
   function detectOS() {
     var u = navigator.userAgent;
@@ -196,51 +330,55 @@
 
   var curOS = detectOS(), curApp = 0;
 
-  function deepLink(app) {
-    return app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
+  function chip(text, pressed, onclick) {
+    var b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = text;
+    b.setAttribute("aria-pressed", pressed ? "true" : "false");
+    b.onclick = onclick;
+    return b;
   }
 
   function render() {
     var apps = APPS[curOS], app = apps[curApp] || apps[0];
-    document.getElementById("installBtn").href = app.install;
-    document.getElementById("installBtn").textContent = "Скачать " + app.name;
-    document.getElementById("appHint").textContent =
-      "Приложение для " + OS_NAMES[curOS] + ": " + app.name + ". Если уже стоит — переходите ко второму шагу.";
-    document.getElementById("addBtn").href = deepLink(app);
-    document.getElementById("addNote").textContent =
-      "Откроется " + app.name + ". Если ничего не произошло — приложение не установлено.";
 
-    var row = document.getElementById("osRow");
-    row.innerHTML = "";
+    var osRow = document.getElementById("osRow");
+    osRow.innerHTML = "";
     Object.keys(APPS).forEach(function (os) {
-      var b = document.createElement("button");
-      b.className = "os"; b.type = "button"; b.textContent = OS_NAMES[os];
-      b.setAttribute("aria-pressed", os === curOS ? "true" : "false");
-      b.onclick = function () { curOS = os; curApp = 0; render(); };
-      row.appendChild(b);
+      osRow.appendChild(chip(OS_NAMES[os], os === curOS, function () {
+        curOS = os; curApp = 0; render();
+      }));
     });
-    APPS[curOS].forEach(function (a, i) {
-      var b = document.createElement("button");
-      b.className = "os"; b.type = "button"; b.textContent = a.name;
-      b.setAttribute("aria-pressed", i === curApp ? "true" : "false");
-      b.style.opacity = ".85";
-      b.onclick = function () { curApp = i; render(); };
-      row.appendChild(b);
+
+    var appRow = document.getElementById("appRow");
+    appRow.innerHTML = "";
+    apps.forEach(function (a, i) {
+      appRow.appendChild(chip(a.name, i === curApp, function () {
+        curApp = i; render();
+      }));
     });
+
+    document.getElementById("installBtn").href = app.install;
+    document.getElementById("installText").textContent = "Скачать " + app.name;
+    document.getElementById("appHint").textContent =
+      "Если " + app.name + " уже установлен, переходите ко второму шагу.";
+    document.getElementById("addBtn").href =
+      app.scheme + (app.enc ? encodeURIComponent(sub) : sub);
+    document.getElementById("addNote").innerHTML =
+      "Откроется <b>" + app.name + "</b>. Ничего не произошло — значит приложение ещё не установлено.";
   }
 
   document.getElementById("copyBtn").onclick = function () {
-    var done = function () {
+    var flash = function () {
       var f = document.getElementById("copied");
       f.style.display = "inline";
       setTimeout(function () { f.style.display = "none"; }, 1800);
     };
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(sub).then(done, function () {});
+      navigator.clipboard.writeText(sub).then(flash, function () {});
     } else {
       var t = document.createElement("textarea");
       t.value = sub; document.body.appendChild(t); t.select();
-      try { document.execCommand("copy"); done(); } catch (e) {}
+      try { document.execCommand("copy"); flash(); } catch (e) {}
       document.body.removeChild(t);
     }
   };
