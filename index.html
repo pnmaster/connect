@@ -4,266 +4,282 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#080b11">
+<meta name="theme-color" content="#070a0e">
 <title>EnkephalinVPN — подключение</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --bg:        #080b11;
-    --bg-glow:   #0d1420;
-    --card:      #10161f;
-    --card-2:    #161d28;
-    --line:      #212b38;
-    --line-soft: #1a2330;
-    --ink:       #e8eef5;
-    --ink-2:     #93a3b5;
-    --ink-3:     #63738a;
+    --bg:        #070a0e;
+    --panel:     #0d1218;
+    --panel-2:   #131a22;
+    --line:      #1e2833;
+    --line-hard: #2b3846;
+    --ink:       #dfe7ef;
+    --ink-2:     #8b9bab;
+    --ink-3:     #5b6b7c;
     --accent:    #4fd1c5;
-    --accent-2:  #38bdf8;
+    --accent-dim:#1d4a47;
     --accent-ink:#04231f;
-    --warn:      #f0b429;
-    --danger:    #f2687a;
+    --warn:      #d9a441;
+    --danger:    #e05a6d;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0;
-    padding: 0 16px 56px;
-    background:
-      radial-gradient(1100px 520px at 50% -8%, var(--bg-glow) 0%, transparent 65%),
-      var(--bg);
-    color: var(--ink);
-    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 16px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; padding: 0 16px 48px;
+    background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 620px; margin: 0 auto; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+  }
 
-  /* ── Шапка ── */
-  header { padding: 40px 0 30px; text-align: center; }
-  .logo {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 19px; letter-spacing: -.02em;
+  /* ── Шапка: карточка досье ── */
+  header {
+    border: 1px solid var(--line-hard); border-top: 2px solid var(--accent);
+    background: var(--panel); padding: 22px 20px 20px; margin: 28px 0 16px;
   }
-  .logo .mark {
-    width: 30px; height: 30px; border-radius: 9px;
-    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 100%);
+  .hdr-top {
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--ink-3); margin-bottom: 18px; gap: 12px;
+  }
+  .logo { display: flex; align-items: center; gap: 11px; }
+  .mark {
+    width: 32px; height: 32px; flex: 0 0 32px;
+    border: 1px solid var(--accent-dim); background: #0a1614;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 18px rgba(79, 209, 197, .22);
   }
-  .logo .mark svg { width: 17px; height: 17px; display: block; }
-  .logo .en { color: var(--ink); }
-  .logo .vpn {
-    color: var(--accent); font-weight: 600;
+  .mark svg { width: 18px; height: 18px; display: block; color: var(--accent); }
+  .brand { font-weight: 700; font-size: 17px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand .vpn { color: var(--accent); }
+  .brand small {
+    display: block; font-family: "IBM Plex Mono", monospace; font-weight: 400;
+    font-size: 10px; letter-spacing: .12em; color: var(--ink-3);
+    text-transform: uppercase; margin-top: 2px;
   }
-  h1 {
-    font-size: clamp(24px, 6vw, 30px); font-weight: 700;
-    letter-spacing: -.025em; margin: 22px 0 8px; text-wrap: balance;
-  }
-  .lede { color: var(--ink-2); font-size: 15px; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(21px, 5.5vw, 26px); font-weight: 600; letter-spacing: -.02em;
+       margin: 0 0 7px; text-wrap: balance; }
+  .lede { color: var(--ink-2); font-size: 14.5px; margin: 0; text-wrap: balance; }
 
-  /* ── Карточки ── */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 14px;
+  /* ── Панели ── */
+  .panel { border: 1px solid var(--line); background: var(--panel); margin-bottom: 12px; }
+  .panel-hd {
+    padding: 10px 16px; border-bottom: 1px solid var(--line);
+    background: var(--panel-2); color: var(--ink-3);
+    display: flex; justify-content: space-between; align-items: center;
   }
+  .panel-bd { padding: 18px 16px; }
 
-  /* ── Переключатели ── */
-  .switch-label {
-    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--ink-3); font-weight: 600; margin: 0 0 9px;
-  }
-  .chips { display: flex; gap: 7px; flex-wrap: wrap; }
+  /* ── Чипы ── */
+  .field + .field { margin-top: 16px; }
+  .field > .mono { color: var(--ink-3); display: block; margin-bottom: 8px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
   .chip {
-    padding: 8px 15px; border-radius: 999px; font-size: 14px; font-weight: 500;
-    background: var(--card-2); border: 1px solid var(--line); color: var(--ink-2);
-    cursor: pointer; font-family: inherit; transition: border-color .15s, color .15s;
+    padding: 7px 14px; font-size: 13.5px; font-weight: 500; cursor: pointer;
+    background: var(--panel-2); border: 1px solid var(--line-hard); color: var(--ink-2);
+    font-family: inherit; transition: border-color .12s, color .12s;
   }
-  .chip:hover { color: var(--ink); }
+  .chip:hover { color: var(--ink); border-color: var(--ink-3); }
   .chip[aria-pressed="true"] {
     border-color: var(--accent); color: var(--accent-ink);
-    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 130%);
-    font-weight: 600;
+    background: var(--accent); font-weight: 600;
   }
-  .chips + .switch-label { margin-top: 18px; }
 
   /* ── Шаги ── */
-  .step { display: flex; gap: 15px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
-  .step:first-of-type { border-top: 0; padding-top: 4px; }
-  .step:last-child { padding-bottom: 2px; }
+  .step { display: flex; gap: 14px; padding: 17px 0; border-top: 1px solid var(--line); }
+  .step:first-child { border-top: 0; padding-top: 2px; }
+  .step:last-child { padding-bottom: 0; }
   .num {
-    flex: 0 0 27px; height: 27px; border-radius: 50%;
-    background: var(--card-2); border: 1px solid var(--line);
+    flex: 0 0 30px; height: 24px; border: 1px solid var(--line-hard);
+    background: var(--panel-2); color: var(--ink-2);
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: var(--ink-2);
-    font-variant-numeric: tabular-nums;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500;
+    font-variant-numeric: tabular-nums; margin-top: 2px;
   }
   .step-body { flex: 1; min-width: 0; }
-  .step h2 { font-size: 16px; font-weight: 600; margin: 3px 0 6px; }
-  .step p { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+  .step h2 { font-size: 15.5px; font-weight: 600; margin: 0 0 5px; }
+  .step p { margin: 0 0 11px; font-size: 14px; color: var(--ink-2); }
   .step p:last-child { margin-bottom: 0; }
 
   /* ── Кнопки ── */
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px 20px; border-radius: 11px; border: 0; cursor: pointer;
-    font-family: inherit; font-size: 15px; font-weight: 600; text-decoration: none;
-    background: linear-gradient(140deg, var(--accent) 0%, var(--accent-2) 130%);
-    color: var(--accent-ink);
-    box-shadow: 0 4px 16px rgba(79, 209, 197, .18);
-    transition: transform .12s, box-shadow .12s;
+    padding: 11px 19px; border: 1px solid var(--accent); cursor: pointer;
+    font-family: inherit; font-size: 14.5px; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--accent-ink); transition: opacity .12s;
   }
-  .btn:hover { box-shadow: 0 6px 22px rgba(79, 209, 197, .26); }
+  .btn:hover { opacity: .88; }
   .btn:active { transform: translateY(1px); }
   .btn.sec {
-    background: var(--card-2); color: var(--ink);
-    border: 1px solid var(--line); box-shadow: none; font-weight: 500;
+    background: var(--panel-2); color: var(--ink);
+    border-color: var(--line-hard); font-weight: 500;
   }
-  .btn.sec:hover { border-color: var(--ink-3); }
-  .btn svg { width: 16px; height: 16px; flex: 0 0 16px; }
+  .btn.sec:hover { border-color: var(--ink-3); opacity: 1; }
+  .btn svg { width: 15px; height: 15px; flex: 0 0 15px; }
   .btn-row { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
 
-  /* ── Ссылка ── */
   .link-box {
-    background: #05080d; border: 1px solid var(--line-soft); border-radius: 10px;
-    padding: 12px 14px; font-size: 11.5px; line-height: 1.5; word-break: break-all;
-    color: var(--ink-2); font-family: "JetBrains Mono", ui-monospace, monospace;
-    margin-bottom: 11px;
+    background: #04070a; border: 1px solid var(--line); padding: 11px 13px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; line-height: 1.55;
+    word-break: break-all; color: var(--ink-2); margin-bottom: 11px;
   }
-
-  .hint { font-size: 13px; color: var(--ink-3); margin: 10px 0 0; }
+  .hint { font-size: 12.5px; color: var(--ink-3); margin: 9px 0 0; }
   .hint b { color: var(--ink-2); font-weight: 600; }
   .flash { color: var(--accent); font-size: 13px; font-weight: 600; }
 
   .callout {
-    display: flex; gap: 11px; padding: 13px 15px; border-radius: 11px;
-    background: rgba(240, 180, 41, .07); border: 1px solid rgba(240, 180, 41, .22);
-    font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+    display: flex; gap: 10px; padding: 12px 14px;
+    background: rgba(217, 164, 65, .06); border-left: 2px solid var(--warn);
+    font-size: 13px; color: var(--ink-2); line-height: 1.5;
   }
-  .callout svg { width: 16px; height: 16px; flex: 0 0 16px; margin-top: 2px; color: var(--warn); }
+  .callout svg { width: 15px; height: 15px; flex: 0 0 15px; margin-top: 2px; color: var(--warn); }
   .callout b { color: var(--ink); font-weight: 600; }
 
-  .err-card {
-    border-color: rgba(242, 104, 122, .3);
-    background: rgba(242, 104, 122, .06);
-  }
-  .err-card p { color: var(--ink-2); font-size: 14px; margin: 0; }
-  .err-card b { color: var(--danger); }
+  .err-panel { border-color: rgba(224, 90, 109, .35); }
+  .err-panel .panel-hd { color: var(--danger); border-bottom-color: rgba(224, 90, 109, .25); }
+  .err-panel p { color: var(--ink-2); font-size: 14px; margin: 0; }
 
   footer {
-    text-align: center; color: var(--ink-3); font-size: 12.5px;
-    padding-top: 26px; line-height: 1.7;
+    border-top: 1px solid var(--line); margin-top: 22px; padding-top: 16px;
+    color: var(--ink-3); font-size: 12.5px; line-height: 1.65;
   }
   footer a { color: var(--ink-2); }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
+  footer .sig {
+    margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line);
+    color: #46525f;
   }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="logo">
-      <span class="mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#04231f" stroke-width="2.4"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2.5 4.5 6v6c0 4.6 3.1 8.4 7.5 9.5 4.4-1.1 7.5-4.9 7.5-9.5V6L12 2.5Z"/>
-        </svg>
-      </span>
-      <span><span class="en">Enkephalin</span><span class="vpn">VPN</span></span>
+    <div class="hdr-top">
+      <div class="logo">
+        <span class="mark" aria-hidden="true">
+          <!-- контейнер с энкефалином -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.6 20.4 7v10L12 21.4 3.6 17V7L12 2.6Z"/>
+            <path d="M3.6 7 12 11.5 20.4 7M12 11.5v9.9" opacity=".55"/>
+            <circle cx="12" cy="7" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="brand">
+          Enkephalin<span class="vpn">VPN</span>
+          <small>протокол подключения</small>
+        </span>
+      </div>
+      <span class="mono" id="osTag">—</span>
     </div>
     <h1>Подключение за три шага</h1>
-    <p class="lede">Ссылка постоянная — при переездах сервера ничего просить не нужно.</p>
+    <p class="lede">Ссылка постоянная. Когда сервер переедет, просить новую не нужно.</p>
   </header>
 
-  <div id="nolink" class="card err-card" style="display:none">
-    <p><b>Ссылка не передана.</b> Откройте страницу по ссылке из бота целиком —
-    вместе с частью после решётки. Если копировали вручную, скопируйте адрес заново.</p>
+  <div id="nolink" class="panel err-panel" style="display:none">
+    <div class="panel-hd"><span class="mono">Ошибка</span><span class="mono">нет данных</span></div>
+    <div class="panel-bd">
+      <p>Ссылка не передана. Откройте страницу по ссылке из бота целиком — вместе
+      с частью после решётки. Если копировали адрес вручную, скопируйте его заново.</p>
+    </div>
   </div>
 
   <main id="main" style="display:none">
 
-    <div class="card">
-      <p class="switch-label">Устройство</p>
-      <div class="chips" id="osRow"></div>
-      <p class="switch-label">Приложение</p>
-      <div class="chips" id="appRow"></div>
+    <div class="panel">
+      <div class="panel-hd"><span class="mono">Конфигурация</span></div>
+      <div class="panel-bd">
+        <div class="field">
+          <span class="mono">Устройство</span>
+          <div class="chips" id="osRow"></div>
+        </div>
+        <div class="field">
+          <span class="mono">Приложение</span>
+          <div class="chips" id="appRow"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <div class="step">
-        <div class="num">1</div>
-        <div class="step-body">
-          <h2>Установите приложение</h2>
-          <p id="appHint"></p>
-          <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-            </svg>
-            <span id="installText">Скачать</span>
-          </a>
-        </div>
-      </div>
+    <div class="panel">
+      <div class="panel-hd"><span class="mono">Порядок действий</span><span class="mono">03 шага</span></div>
+      <div class="panel-bd">
 
-      <div class="step">
-        <div class="num">2</div>
-        <div class="step-body">
-          <h2>Добавьте подписку</h2>
-          <p>Приложение откроется само и настроится — вводить ничего не нужно.</p>
-          <a class="btn" id="addBtn" href="#">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 5v14M5 12h14"/>
-            </svg>
-            Добавить подписку
-          </a>
-          <p class="hint" id="addNote"></p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="num">3</div>
-        <div class="step-body">
-          <h2>Включите VPN</h2>
-          <p>Выберите профиль в приложении и нажмите кнопку подключения.</p>
-          <div class="callout">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>
-            </svg>
-            <span><b>Не подключается?</b> Включите в настройках приложения
-            «Фрагментация» (Fragment) и попробуйте снова.</span>
+        <div class="step">
+          <div class="num">01</div>
+          <div class="step-body">
+            <h2>Установите приложение</h2>
+            <p id="appHint"></p>
+            <a class="btn sec" id="installBtn" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+              <span id="installText">Скачать</span>
+            </a>
           </div>
         </div>
+
+        <div class="step">
+          <div class="num">02</div>
+          <div class="step-body">
+            <h2>Добавьте подписку</h2>
+            <p>Приложение откроется само и настроится — вводить ничего не нужно.</p>
+            <a class="btn" id="addBtn" href="#">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Добавить подписку
+            </a>
+            <p class="hint" id="addNote"></p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">03</div>
+          <div class="step-body">
+            <h2>Включите VPN</h2>
+            <p>Выберите профиль в приложении и нажмите кнопку подключения.</p>
+            <div class="callout">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>
+              </svg>
+              <span><b>Не подключается?</b> Включите в настройках приложения
+              «Фрагментация» (Fragment) и попробуйте снова.</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="card">
-      <h2 style="font-size:16px;font-weight:600;margin:0 0 7px">Добавить вручную</h2>
-      <p style="font-size:14px;color:var(--ink-2);margin:0 0 13px">
-        Если кнопка не сработала — скопируйте ссылку и добавьте её в приложении
-        как <b style="color:var(--ink)">подписку</b>, а не как отдельный конфиг.
-      </p>
-      <div class="link-box" id="rawLink"></div>
-      <div class="btn-row">
-        <button class="btn sec" id="copyBtn" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="12" height="12" rx="2"/>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
-          Скопировать ссылку
-        </button>
-        <span class="flash" id="copied" style="display:none">Скопировано</span>
+    <div class="panel">
+      <div class="panel-hd"><span class="mono">Резервный способ</span></div>
+      <div class="panel-bd">
+        <p style="font-size:14px;color:var(--ink-2);margin:0 0 12px">
+          Если кнопка не сработала — скопируйте ссылку и добавьте её в приложении
+          как <b style="color:var(--ink)">подписку</b>, а не как отдельный конфиг.
+        </p>
+        <div class="link-box" id="rawLink"></div>
+        <div class="btn-row">
+          <button class="btn sec" id="copyBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="12" height="12"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Скопировать ссылку
+          </button>
+          <span class="flash" id="copied" style="display:none">Скопировано</span>
+        </div>
       </div>
     </div>
 
@@ -271,7 +287,8 @@
       Ссылка именная — не передавайте её другим.<br>
       Перестал работать VPN? Не просите новую ссылку — откройте приложение
       и обновите подписку.<br>
-      Вопросы: <a href="https://t.me/EnkephalinVPN">@EnkephalinVPN</a>
+      Связь: <a href="https://t.me/EnkephalinVPN">@EnkephalinVPN</a>
+      <div class="sig mono">Отдел контроля информации · доступ по подписке</div>
     </footer>
 
   </main>
@@ -340,6 +357,8 @@
 
   function render() {
     var apps = APPS[curOS], app = apps[curApp] || apps[0];
+
+    document.getElementById("osTag").textContent = OS_NAMES[curOS];
 
     var osRow = document.getElementById("osRow");
     osRow.innerHTML = "";
