@@ -201,6 +201,12 @@
           <div class="step-body">
             <h2 id="step3Title">Включите VPN</h2>
             <ol class="acts" id="acts"></ol>
+            <a class="btn sec" id="connectBtn" href="#" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>
+              Подключить
+            </a>
+            <p class="hint" id="connectNote" style="display:none"></p>
             <div class="callout" style="margin-top:13px">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                    stroke-linecap="round" stroke-linejoin="round">
@@ -268,11 +274,11 @@
         acts:["Подтвердите сохранение профиля, когда приложение откроется.",
               "Выберите профиль и нажмите большую кнопку подключения.",
               "Android спросит разрешение на VPN-подключение — <b>разрешите</b>, это обычный системный запрос."] },
-      { name:"INCY", install:"https://play.google.com/store/apps/details?id=llc.itdev.incy",
-        acts:["Скопируйте ссылку кнопкой в самом низу страницы.",
-              "Откройте INCY и найдите добавление подписки — обычно это <b>+</b> или пункт <b>Подписки</b> в меню.",
-              "Вставьте ссылку и сохраните — серверы подгрузятся сами.",
-              "Выберите сервер и нажмите подключение, разрешите VPN-конфигурацию."] },
+      { name:"INCY", scheme:"incy://add/", enc:false, connect:"incy://connect",
+        install:"https://play.google.com/store/apps/details?id=llc.itdev.incy",
+        acts:["Выберите сервер из списка.",
+              "Нажмите кнопку подключения — или кнопку ниже, она включает VPN сразу.",
+              "Разрешите создание VPN-подключения."] },
       { name:"Happ", scheme:"happ://add/", enc:false,
         install:"https://play.google.com/store/apps/details?id=com.happproxy",
         acts:["Выберите сервер из списка.",
@@ -447,6 +453,20 @@
     app.acts.forEach(function (t) {
       var li = document.createElement("li"); li.innerHTML = t; acts.appendChild(li);
     });
+
+    // Отдельная схема включения VPN есть не у всех — кнопку показываем только им.
+    var connectBtn = document.getElementById("connectBtn");
+    var connectNote = document.getElementById("connectNote");
+    if (app.connect) {
+      connectBtn.href = app.connect;
+      connectBtn.style.display = "";
+      connectNote.style.display = "";
+      connectNote.innerHTML =
+        "Работает, когда подписка уже добавлена и сервер выбран.";
+    } else {
+      connectBtn.style.display = "none";
+      connectNote.style.display = "none";
+    }
   }
 
   document.getElementById("copyBtn").onclick = function () {
